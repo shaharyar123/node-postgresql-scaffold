@@ -2,10 +2,11 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import { config } from "dotenv";
- 
+
 import db from "./config/db";
 import { associateModels } from "./models";
- 
+import { AuthRoutes } from "../modules";
+
 config();
 const app = express();
 
@@ -22,9 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 /* Routes Definition */
-app.use("/api", [
-   
-]);
+app.use("/api", [AuthRoutes]);
 /* Unknown Route Handler */
 app.use("/", (req, res) => {
   return res.status(502).send("Bad request");
@@ -34,4 +33,3 @@ app.use("/", (req, res) => {
 app.listen(process.env.PORT, () =>
   console.log("app is listening on port " + process.env.PORT)
 );
- 
