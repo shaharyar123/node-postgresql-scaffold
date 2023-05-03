@@ -4,7 +4,8 @@ import cors from "cors";
 
 import { ConfigService } from "@/modules/config/services";
 import { AppRouter } from "@/core/app-router";
-import { appConfig, sequelizeConfig } from "@/modules/config/config";
+import type { Sequelize } from "sequelize-typescript";
+import type { TAppConfig } from "@/modules/config/config";
 
 export class App {
 	private static _instance: App;
@@ -24,7 +25,7 @@ export class App {
 	}
 
 	public loadConfig(): App {
-		ConfigService.loadConfig();
+		ConfigService.getInstance().loadConfig();
 
 		return this;
 	}
@@ -49,7 +50,8 @@ export class App {
 
 	public async connectDatabase(): Promise<App> {
 		try {
-			await sequelizeConfig.authenticate();
+			const sequelize: Sequelize = ConfigService.getInstance().get("db");
+			await sequelize.authenticate();
 
 			console.log("Connected to database successfully!");
 
@@ -62,8 +64,10 @@ export class App {
 	}
 
 	public runApplication(): void {
+		const appConfig: TAppConfig = ConfigService.getInstance().get("app");
+
 		this.app.listen(appConfig.port, appConfig.host, (): void => {
-			console.log(`Application running on ${ appConfig.host }:${ appConfig.port }`);
+			console.log(`Application running on ${appConfig.host}:${appConfig.port}`);
 		});
 	}
 }
