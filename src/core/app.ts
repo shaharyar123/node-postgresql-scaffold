@@ -42,7 +42,6 @@ export class App {
 
 	public registerRoutes(): App {
 		this.router = new AppRouter();
-		this.router.registerBadRequestRoute(this.app);
 		this.router.registerApplicationModuleRoutes(this.app);
 
 		return this;
