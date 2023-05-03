@@ -1,4 +1,5 @@
 import type { Response } from "express-serve-static-core";
+import type { ParamsDictionary, Request } from "express-serve-static-core";
 import type { ValidationError } from "express-validator";
 
 export type TSuccess<T> = {
@@ -20,4 +21,6 @@ export type TFailedResponse<E> = Response<TFail<E>>;
 export type TResponse<T, E> = TSuccessfulResponse<T> | TFailedResponse<E>;
 
 export type TPossibleFailure = Array<ValidationError> | TError;
-export type TPossibleResponse<T> = TResponse<T, TPossibleFailure>;
+
+export type TControllerRequest<T, R> = Request<ParamsDictionary, R, T>;
+export type TControllerResponse<T> = TResponse<T, TPossibleFailure>;
