@@ -13,7 +13,7 @@
     "compile": "rm -rf dist && tsc",
     "path:resolve": "tsc-alias -p tsconfig.json",
     "lint": "eslint --ignore-path .eslintignore --ext .js,.ts .",
-    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
+    "format": "prettier --ignore-path .prettierignore --write \"**/*.+(js|ts|json)\"",
     "migrate": "sequelize db:migrate",
     "migrate-undo": "sequelize db:migrate:undo",
     "seed": "sequelize db:seed:all",
