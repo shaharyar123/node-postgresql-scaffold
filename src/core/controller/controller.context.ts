@@ -7,8 +7,14 @@ export class ControllerContext {
 
 		return new Proxy(controllerInstance, {
 			get(target: T, property: string): T[Key<T>] {
-				const targetMethod: CallableFunction = <CallableFunction>target[<Key<T>>property];
-				return <T[Key<T>]>targetMethod.bind(target);
+				const targetProp: T[Key<T>] = target[property as Key<T>];
+
+				// noinspection SuspiciousTypeOfGuard
+				if (targetProp instanceof Function) {
+					return targetProp.bind(target);
+				}
+
+				return targetProp;
 			},
 		});
 	}
