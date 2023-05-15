@@ -34,6 +34,9 @@ dependencies:
   sequelize-typescript:
     specifier: ^2.1.5
     version: 2.1.5(@types/node@18.16.3)(@types/validator@13.7.15)(reflect-metadata@0.1.13)(sequelize@6.31.1)
+  uuid:
+    specifier: ^9.0.0
+    version: 9.0.0
 
 devDependencies:
   '@types/bcrypt':
@@ -54,6 +57,9 @@ devDependencies:
   '@types/node':
     specifier: ^18.16.3
     version: 18.16.3
+  '@types/uuid':
+    specifier: ^9.0.1
+    version: 9.0.1
   '@types/validator':
     specifier: ^13.7.15
     version: 13.7.15
@@ -272,6 +278,10 @@ packages:
     dependencies:
       '@types/mime': 3.0.1
       '@types/node': 18.16.3
+    dev: true
+
+  /@types/uuid@9.0.1:
+    resolution: { integrity: sha512-rFT3ak0/2trgvp4yYZo5iKFEPsET7vKydKF+VRCxlQ9bpheehyAJH89dAkaLEq/j/RZXJIqcgsmPJKUP1Z28HA== }
     dev: true
 
   /@types/validator@13.7.15:
@@ -2079,6 +2089,11 @@ packages:
 
   /uuid@8.3.2:
     resolution: { integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg== }
+    hasBin: true
+    dev: false
+
+  /uuid@9.0.0:
+    resolution: { integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg== }
     hasBin: true
     dev: false
 

@@ -1,8 +1,8 @@
-export type ILoginRequest = {
-	email: string;
-	password: string;
+export type TLoginRequest = {
+	userEmail: string;
+	userPassword: string;
 };
 
-export type ILoginResponse = {
+export type TLoginResponse = {
 	token: string;
 };

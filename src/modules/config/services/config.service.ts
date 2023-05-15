@@ -1,9 +1,10 @@
-import process from "process";
-import path from "path";
+import { env } from "process";
 import { config } from "dotenv";
 import type { TConfig, TConfigClassMap } from "@/modules/config/types";
-import type { Key } from "@/modules/common/types";
+import type { Constructable, Key } from "@/modules/common/types";
 import { AppConfig, DbConfig, JwtConfig } from "@/modules/config/config";
+import { PathService } from "@/modules/common/services/path.service";
+import type { IConfig } from "@/modules/config/interfaces";
 
 export class ConfigService {
 	private static _instance: ConfigService;
@@ -31,27 +32,28 @@ export class ConfigService {
 		return this.config[key];
 	}
 
-	public loadConfig(): void {
+	public async loadConfig(): Promise<void> {
 		if (this.configLoaded) return;
 
-		const nodePath: string = process.env["NODE_PATH"] as string;
-		const nodeEnvironment: string = process.env["NODE_ENV"] as string;
+		const nodeEnvironment: string = env["NODE_ENV"] ?? "dev";
 
-		const envFilePath: string = path.resolve(nodePath, `.env.${nodeEnvironment}`);
-		config({ path: envFilePath });
+		config({ path: PathService.rootPath(`.env.${nodeEnvironment}`) });
 
-		this.loadApplicationConfig();
+		await this.loadApplicationConfig();
 
 		this.configLoaded = true;
 	}
 
-	private loadApplicationConfig(): void {
-		this.config = Object.fromEntries(
-			Object.entries(this.configClasses).map(([configKey, configClass]) => {
-				const config = new configClass();
+	private async loadApplicationConfig(): Promise<void> {
+		const exportedConfigObjectsWithKeys: Array<[string, unknown]> = [];
+		const configClassesWithKeys: Array<[string, Constructable<IConfig<unknown>>]> = Object.entries(this.configClasses);
 
-				return [configKey, config.exportConfig()];
-			}),
-		) as TConfig;
+		for (const [configKey, configClass] of configClassesWithKeys) {
+			const configClassInstance: IConfig<unknown> = new configClass();
+
+			exportedConfigObjectsWithKeys.push([configKey, await configClassInstance.exportConfig()]);
+		}
+
+		this.config = Object.fromEntries(exportedConfigObjectsWithKeys) as TConfig;
 	}
 }

@@ -1,3 +1,3 @@
 export type IConfig<T> = {
-	exportConfig(): T;
+	exportConfig(): T | Promise<T>;
 };

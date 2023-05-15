@@ -1,2 +1,2 @@
-export * from "./base-controller";
-export * from "./base-controller.type";
+export * from "./base.controller";
+export * from "./base.controller.type";

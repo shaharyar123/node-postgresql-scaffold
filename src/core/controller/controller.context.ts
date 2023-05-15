@@ -1,5 +1,5 @@
 import type { Constructable, Key } from "@/modules/common/types";
-import type { BaseController } from "@/core/controller/base-controller";
+import type { BaseController } from "@/core/controller/base.controller";
 
 export class ControllerContext {
 	public static createControllerContext<T extends BaseController>(targetController: Constructable<T>): T {

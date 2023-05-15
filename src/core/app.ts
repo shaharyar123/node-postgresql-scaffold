@@ -24,8 +24,8 @@ export class App {
 		return App._instance;
 	}
 
-	public loadConfig(): App {
-		ConfigService.getInstance().loadConfig();
+	public async loadConfig(): Promise<App> {
+		await ConfigService.getInstance().loadConfig();
 
 		return this;
 	}
