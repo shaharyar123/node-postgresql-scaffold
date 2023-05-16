@@ -6,7 +6,7 @@ import type { Sequelize } from "sequelize-typescript";
 import { ConfigService } from "@/modules/config/services";
 
 export class BaseService {
-	public async executeTransactionalOperation<T>(transactionalOperation: TransactionalOperation<T>): Promise<T> {
+	protected async executeTransactionalOperation<T>(transactionalOperation: TransactionalOperation<T>): Promise<T> {
 		const preparedTransaction: RunningTransaction = await this.prepareTransaction(transactionalOperation.withTransaction);
 
 		try {
