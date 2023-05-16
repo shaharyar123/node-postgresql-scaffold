@@ -1,4 +1,4 @@
-import type { RunningTransaction, TransactionalOperation, TransactionStore } from "@/core/domain/types";
+import type { RunningTransaction, TransactionalOperation, TransactionStore } from "@/core/domain-layer/types";
 import type { Transaction } from "sequelize";
 import { BaseError } from "sequelize";
 import { InternalServerException } from "@/modules/common/exceptions";

@@ -1,4 +1,4 @@
-import type { TControllerRequest, TControllerResponse, TError, TFailedResponse, TPossibleFailure, TSuccessfulResponse } from "@/core/domain/types";
+import type { TControllerRequest, TControllerResponse, TError, TFailedResponse, TPossibleFailure, TSuccessfulResponse } from "@/core/presentation-layer/types";
 import type { Result, ValidationError } from "express-validator";
 import { validationResult } from "express-validator";
 

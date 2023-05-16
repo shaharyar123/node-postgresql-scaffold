@@ -1,6 +1,6 @@
-import type { BaseModel } from "@/core/dal/model";
-import type { AvailableScopes, ModelType } from "@/core/dal/types";
-import { ModelScopes } from "@/core/dal/scopes/model.scopes";
+import type { BaseModel } from "@/core/data-access-layer/model";
+import type { AvailableScopes, ModelType } from "@/core/data-access-layer/types";
+import { ModelScopes } from "@/core/data-access-layer/scopes/model.scopes";
 
 export class ModelScopeFactory<TModel extends BaseModel<TModel>> {
 	private constructor(private model: ModelType<TModel>, private scopes: AvailableScopes = {}) {}

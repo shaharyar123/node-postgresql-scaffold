@@ -1,6 +1,6 @@
-import type { BaseModel } from "@/core/dal/model/base.model";
 import { CreatedAt, DeletedAt, UpdatedAt } from "sequelize-typescript";
-import type { ModelType } from "@/core/dal/types";
+import type { BaseModel } from "@/core/data-access-layer/model/base.model";
+import type { ModelType } from "@/core/data-access-layer/types";
 
 export const CreatedAtColumn: PropertyDecorator = <PropertyDecorator>(<TModel extends BaseModel<TModel>>(target: TModel, propertyKey: string): void => {
 	ApplyTimestampDecorator(target, propertyKey, <PropertyDecorator>CreatedAt, "createdAtColumnName");

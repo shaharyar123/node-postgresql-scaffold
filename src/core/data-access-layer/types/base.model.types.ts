@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ScopesOptions } from "sequelize-typescript";
 import type { Constructable, FilterWhereNot, Key, Nullable } from "@/modules/common/types";
-import type { BaseModel } from "@/core/dal/model";
-import type { ModelScopes } from "@/core/dal/scopes";
+import type { BaseModel } from "@/core/data-access-layer/model";
+import type { ModelScopes } from "@/core/data-access-layer/scopes";
 import type { ScopeOptions } from "sequelize";
 
 export type ModelScope = Array<string | ScopeOptions>;

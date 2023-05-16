@@ -1,11 +1,11 @@
-import { BaseService } from "@/core/domain/service";
-import type { IRegisterRequest, TLoginRequest } from "@/modules/auth/dto";
+import type { TLoginRequest, TRegisterRequest } from "@/modules/auth/dto";
 import type { Nullable } from "@/modules/common/types";
 import { UserModel } from "@/modules/user/models";
 import { HashService, JwtService } from "@/modules/common/services";
-import type { RunningTransaction } from "@/core/domain/types";
 import { UserRepository } from "@/modules/user/repositories";
-import { ModelScopes } from "@/core/dal/scopes";
+import { BaseService } from "@/core/domain-layer/service";
+import type { RunningTransaction } from "@/core/domain-layer/types";
+import { ModelScopes } from "@/core/data-access-layer/scopes";
 
 export class AuthService extends BaseService {
 	public async login(loginRequest: TLoginRequest): Promise<Nullable<string>> {
@@ -20,7 +20,7 @@ export class AuthService extends BaseService {
 		return jwtService.createToken(user.id.toString(), user);
 	}
 
-	public async register(registerRequest: IRegisterRequest): Promise<string | UserModel> {
+	public async register(registerRequest: TRegisterRequest): Promise<string | UserModel> {
 		return this.executeTransactionalOperation({
 			transactionCallback: async (runningTransaction: RunningTransaction): Promise<string | UserModel> => {
 				const userRepository: UserRepository = new UserRepository();

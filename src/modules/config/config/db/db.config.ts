@@ -4,12 +4,12 @@ import type { IConfig } from "@/modules/config/interfaces";
 import type { SequelizeOptions } from "sequelize-typescript";
 import { Sequelize } from "sequelize-typescript";
 import type { Dialect } from "sequelize";
-import type { ModelType } from "@/core/dal/types";
-import type { BaseModel } from "@/core/dal/model";
 import { ConfigValidator } from "@/modules/config/validations";
 import { env } from "process";
 import { readdir } from "fs/promises";
 import { PathService } from "@/modules/common/services";
+import type { BaseModel } from "@/core/data-access-layer/model";
+import type { ModelType } from "@/core/data-access-layer/types";
 
 export class DbConfig implements IConfig<Sequelize> {
 	public async exportConfig(): Promise<Sequelize> {
@@ -25,14 +25,7 @@ export class DbConfig implements IConfig<Sequelize> {
 			port: ConfigValidator.toNumber(ConfigValidator.assertPresent(env["DB_PORT"])),
 			logging: ConfigValidator.toBoolean(ConfigValidator.assertPresent(env["DB_LOGGING"])),
 			models: loadedModels,
-			modelMatch: (fileName: string, member: string): boolean => {
-				const exportedModel: string = fileName
-					.split(".")
-					.map((word: string) => word.slice(0, 1).toUpperCase().concat(word.slice(1)))
-					.join("");
-
-				return exportedModel === member;
-			},
+			modelMatch: (): boolean => true,
 			sync: {
 				force: true,
 			},

@@ -1,6 +1,6 @@
+import type { ModelScope } from "@/core/data-access-layer/types";
 import { Model } from "sequelize-typescript";
 import type { ModelStatic } from "sequelize";
-import type { ModelScope } from "@/core/dal/types";
 
 export class BaseModel<TModel extends BaseModel<TModel>> extends Model<TModel> {
 	// Table & Column Name Information

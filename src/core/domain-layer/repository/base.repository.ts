@@ -1,9 +1,10 @@
-import type { BaseModel } from "@/core/dal/model";
+import type { BaseModel } from "@/core/data-access-layer/model";
+import type { ModelKeyValues, ModelScope, ModelType } from "@/core/data-access-layer/types";
+import type { CreateManyOptions, CreateOneOptions, CreateOrUpdateOptions, DeleteOptions, FindOrCreateOptions, ModelResolution, ScopedFinderOptions, UpdateOptions } from "@/core/domain-layer/types";
 import type { Nullable } from "@/modules/common/types";
-import type { CreateManyOptions, CreateOneOptions, CreateOrUpdateOptions, DeleteOptions, FindOrCreateOptions, ModelKeyValues, ModelResolution, ModelScope, ModelType, ScopedFinderOptions, UpdateOptions } from "@/core/dal/types";
 import { InternalServerException, NotFoundException } from "@/modules/common/exceptions";
 import type { CreationAttributes, WhereOptions } from "sequelize";
-import { DefaultScopedFindOptions } from "@/core/dal/repository/base.repository.defaults";
+import { DefaultScopedFindOptions } from "@/core/domain-layer/repository/base.repository.defaults";
 
 export class BaseRepository<TModel extends BaseModel<TModel>> {
 	protected constructor(protected readonly concreteModel: ModelType<TModel>) {}

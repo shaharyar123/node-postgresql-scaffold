@@ -1,6 +1,6 @@
-import type { BaseModel } from "@/core/dal/model";
+import type { BaseModel } from "@/core/data-access-layer/model";
 import type { FindOptions, Transaction } from "sequelize";
-import type { ModelScope, ModelTableColumnProperties } from "@/core/dal/types/base.model.types";
+import type { ModelScope, ModelTableColumnProperties } from "@/core/data-access-layer/types";
 
 export type ModelResolution<TModel extends BaseModel<TModel>> = TModel | string | number;
 
