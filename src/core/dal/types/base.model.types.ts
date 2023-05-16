@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { ScopeOptions } from "sequelize";
 import type { ScopesOptions } from "sequelize-typescript";
-import type { BaseModel } from "@/core/model/base.model";
-import type { BaseModelDefaultScopes } from "@/core/model/base.model.default-scopes";
 import type { Constructable, FilterWhereNot, Key, Nullable } from "@/modules/common/types";
+import type { BaseModel } from "@/core/dal/model";
+import type { ModelScopes } from "@/core/dal/scopes";
+import type { ScopeOptions } from "sequelize";
 
 export type ModelScope = Array<string | ScopeOptions>;
 
@@ -24,6 +24,6 @@ export type Relationship<TModel extends BaseModel<TModel>> = {
 	modelOrModels: BaseModel<TModel> | Array<BaseModel<TModel>>;
 };
 
-export type AvailableScopes = Record<(typeof BaseModelDefaultScopes)[keyof typeof BaseModelDefaultScopes], ScopesOptions>;
+export type AvailableScopes = Record<(typeof ModelScopes)[keyof typeof ModelScopes], ScopesOptions>;
 
 export type ModelType<TModel extends BaseModel<TModel>> = Constructable<TModel, any> & typeof BaseModel<TModel>;

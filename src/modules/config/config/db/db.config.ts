@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import type { IConfig } from "@/modules/config/interfaces";
+import type { SequelizeOptions } from "sequelize-typescript";
+import { Sequelize } from "sequelize-typescript";
+import type { Dialect } from "sequelize";
+import type { ModelType } from "@/core/dal/types";
+import type { BaseModel } from "@/core/dal/model";
+import { ConfigValidator } from "@/modules/config/validations";
 import { env } from "process";
 import { readdir } from "fs/promises";
-import type { Dialect } from "sequelize";
-import { Sequelize, type SequelizeOptions } from "sequelize-typescript";
-import { ConfigValidator } from "@/modules/config/validations";
-import type { IConfig } from "@/modules/config/interfaces";
-import type { BaseModel, ModelType } from "@/core/model";
 import { PathService } from "@/modules/common/services";
 
 export class DbConfig implements IConfig<Sequelize> {

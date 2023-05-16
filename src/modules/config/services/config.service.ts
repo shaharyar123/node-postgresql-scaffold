@@ -1,10 +1,10 @@
-import { env } from "process";
-import { config } from "dotenv";
 import type { TConfig, TConfigClassMap } from "@/modules/config/types";
-import type { Constructable, Key } from "@/modules/common/types";
 import { AppConfig, DbConfig, JwtConfig } from "@/modules/config/config";
-import { PathService } from "@/modules/common/services/path.service";
+import type { Constructable, Key } from "@/modules/common/types";
+import { env } from "process";
+import { PathService } from "@/modules/common/services";
 import type { IConfig } from "@/modules/config/interfaces";
+import { config } from "dotenv";
 
 export class ConfigService {
 	private static _instance: ConfigService;

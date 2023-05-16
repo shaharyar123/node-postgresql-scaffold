@@ -1,13 +1,13 @@
-import { BaseModelDefaultScopes } from "@/core/model/base.model.default-scopes";
-import type { BaseModel } from "@/core/model/base.model";
-import type { AvailableScopes, ModelType } from "@/core/model/base.model.types";
+import type { BaseModel } from "@/core/dal/model";
+import type { AvailableScopes, ModelType } from "@/core/dal/types";
+import { ModelScopes } from "@/core/dal/scopes/model.scopes";
 
-export class BaseModelScopes<TModel extends BaseModel<TModel>> {
+export class ModelScopeFactory<TModel extends BaseModel<TModel>> {
 	private constructor(private model: ModelType<TModel>, private scopes: AvailableScopes = {}) {}
 
 	public static commonScopes<TModelStatic extends BaseModel<TModelStatic>>(modelCallback: () => typeof BaseModel<TModelStatic>): AvailableScopes {
 		const modelGetterCallback = modelCallback as () => ModelType<TModelStatic>;
-		const scopesInstance: BaseModelScopes<TModelStatic> = new BaseModelScopes(modelGetterCallback());
+		const scopesInstance: ModelScopeFactory<TModelStatic> = new ModelScopeFactory(modelGetterCallback());
 
 		scopesInstance
 			// Handle scope logic according to their business in separate methods
@@ -19,36 +19,36 @@ export class BaseModelScopes<TModel extends BaseModel<TModel>> {
 		return scopesInstance.scopes;
 	}
 
-	private preparePrimaryKeyScopes(): BaseModelScopes<TModel> {
-		this.scopes[BaseModelDefaultScopes.primaryKeyOnly] = { attributes: [this.model.primaryKeyAttribute] };
+	private preparePrimaryKeyScopes(): ModelScopeFactory<TModel> {
+		this.scopes[ModelScopes.primaryKeyOnly] = { attributes: [this.model.primaryKeyAttribute] };
 
 		return this;
 	}
 
-	private prepareUuidKeyScopes(): BaseModelScopes<TModel> {
+	private prepareUuidKeyScopes(): ModelScopeFactory<TModel> {
 		if (!this.model.uuidColumnName) return this;
 
-		this.scopes[BaseModelDefaultScopes.primaryKeyAndUuidOnly] = {
+		this.scopes[ModelScopes.primaryKeyAndUuidOnly] = {
 			attributes: [this.model.primaryKeyAttribute, this.model.uuidColumnName],
 		};
 
 		return this;
 	}
 
-	private prepareTimestampsScopes(): BaseModelScopes<TModel> {
+	private prepareTimestampsScopes(): ModelScopeFactory<TModel> {
 		const availableTimestamps: Array<string> = [];
 
 		if (this.model.createdAtColumnName) availableTimestamps.push(this.model.createdAtColumnName);
 		if (this.model.updatedAtColumnName) availableTimestamps.push(this.model.updatedAtColumnName);
 		if (this.model.deletedAtColumnName) availableTimestamps.push(this.model.deletedAtColumnName);
 
-		if (availableTimestamps.length) this.scopes[BaseModelDefaultScopes.withoutTimestamps] = { attributes: { exclude: availableTimestamps } };
+		if (availableTimestamps.length) this.scopes[ModelScopes.withoutTimestamps] = { attributes: { exclude: availableTimestamps } };
 
 		return this;
 	}
 
-	private prepareActiveColumnScopes(): BaseModelScopes<TModel> {
-		if (this.model.isActiveColumnName) this.scopes[BaseModelDefaultScopes.isActive] = { where: { [this.model.isActiveColumnName]: true } };
+	private prepareActiveColumnScopes(): ModelScopeFactory<TModel> {
+		if (this.model.isActiveColumnName) this.scopes[ModelScopes.isActive] = { where: { [this.model.isActiveColumnName]: true } };
 
 		return this;
 	}

@@ -1,6 +1,6 @@
-import type { BaseModel } from "@/core/model/base.model";
+import type { BaseModel } from "@/core/dal/model/base.model";
 import { CreatedAt, DeletedAt, UpdatedAt } from "sequelize-typescript";
-import type { ModelType } from "@/core/model/base.model.types";
+import type { ModelType } from "@/core/dal/types";
 
 export const CreatedAtColumn: PropertyDecorator = <PropertyDecorator>(<TModel extends BaseModel<TModel>>(target: TModel, propertyKey: string): void => {
 	ApplyTimestampDecorator(target, propertyKey, <PropertyDecorator>CreatedAt, "createdAtColumnName");
@@ -24,7 +24,12 @@ export const IsActiveColumn: PropertyDecorator = <PropertyDecorator>(<TModel ext
 	concreteModel.isActiveColumnName = propertyKey;
 });
 
-const ApplyTimestampDecorator = <TModel extends BaseModel<TModel>>(target: TModel, propertyKey: string, timestampDecorator: PropertyDecorator, timestampKey: "createdAtColumnName" | "updatedAtColumnName" | "deletedAtColumnName"): void => {
+const ApplyTimestampDecorator = <TModel extends BaseModel<TModel>, TimestampKey extends "createdAtColumnName" | "updatedAtColumnName" | "deletedAtColumnName">(
+	target: TModel,
+	propertyKey: string,
+	timestampDecorator: PropertyDecorator,
+	timestampKey: TimestampKey,
+): void => {
 	const concreteModel: ModelType<TModel> = <ModelType<TModel>>target.constructor;
 	concreteModel[timestampKey] = propertyKey;
 

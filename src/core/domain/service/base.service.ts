@@ -1,8 +1,9 @@
-import type { RunningTransaction, TransactionalOperation, TransactionStore } from "@/core/service/base.service.types";
-import { BaseError, type Transaction } from "sequelize";
+import type { RunningTransaction, TransactionalOperation, TransactionStore } from "@/core/domain/types";
+import type { Transaction } from "sequelize";
+import { BaseError } from "sequelize";
 import { InternalServerException } from "@/modules/common/exceptions";
-import { ConfigService } from "@/modules/config/services";
 import type { Sequelize } from "sequelize-typescript";
+import { ConfigService } from "@/modules/config/services";
 
 export class BaseService {
 	public async executeTransactionalOperation<T>(transactionalOperation: TransactionalOperation<T>): Promise<T> {

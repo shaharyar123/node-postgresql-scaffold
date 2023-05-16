@@ -1,6 +1,6 @@
-import type { Response } from "express-serve-static-core";
-import type { ParamsDictionary, Request } from "express-serve-static-core";
+import type { Request, Response } from "express";
 import type { ValidationError } from "express-validator";
+import type { ParamsDictionary } from "express-serve-static-core";
 
 export type TSuccess<T> = {
 	data: T;

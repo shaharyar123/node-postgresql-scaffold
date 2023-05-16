@@ -1,13 +1,13 @@
 import { AllowNull, AutoIncrement, BeforeCreate, BeforeUpdate, Column, DataType, Default, PrimaryKey, Scopes, Table, Unique } from "sequelize-typescript";
+import { BaseModel, CreatedAtColumn, DeletedAtColumn, IsActiveColumn, UpdatedAtColumn, UuidColumn } from "@/core/dal/model";
+import type { Key, Nullable } from "@/modules/common/types";
 import { HashService } from "@/modules/common/services";
-import { BaseModel, BaseModelScopes, CreatedAtColumn, DeletedAtColumn, IsActiveColumn, UpdatedAtColumn, UuidColumn } from "@/core/model";
-import type { Nullable } from "@/modules/common/types";
-import type { Key } from "@/modules/common/types";
 import type { ModelStatic } from "sequelize";
 import { v4 as uuid } from "uuid";
+import { ModelScopeFactory } from "@/core/dal/scopes";
 
 @Scopes(() => ({
-	...BaseModelScopes.commonScopes(() => UserModel),
+	...ModelScopeFactory.commonScopes(() => UserModel),
 }))
 @Table({ tableName: "users" })
 export class UserModel extends BaseModel<UserModel> {

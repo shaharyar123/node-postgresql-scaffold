@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 
 import { ConfigService } from "@/modules/config/services";
-import { AppRouter } from "@/core/app-router";
+import { AppRouter } from "@/core/domain/router/app-router";
 import type { Sequelize } from "sequelize-typescript";
 import type { TAppConfig } from "@/modules/config/config";
 

@@ -1,9 +1,9 @@
-import type { TControllerRequest, TControllerResponse } from "@/core/controller";
-import { BaseController } from "@/core/controller";
+import { BaseController } from "@/core/domain/controller";
+import type { TControllerRequest, TControllerResponse } from "@/core/domain/types";
 import type { IRegisterRequest, IRegisterResponse, TLoginRequest, TLoginResponse } from "@/modules/auth/dto";
 import { AuthService } from "@/modules/auth/services";
-import type { UserModel } from "@/modules/user/models";
 import type { Nullable } from "@/modules/common/types";
+import type { UserModel } from "@/modules/user/models";
 
 export class AuthController extends BaseController {
 	public async login(request: TControllerRequest<TLoginRequest, TLoginResponse>, response: TControllerResponse<TLoginResponse>): Promise<void> {

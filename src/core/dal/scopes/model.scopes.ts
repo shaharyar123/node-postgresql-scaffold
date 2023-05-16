@@ -1,4 +1,4 @@
-export const BaseModelDefaultScopes = {
+export const ModelScopes = {
 	// Regarding PK
 	primaryKeyOnly: "primaryKeyOnly",
 

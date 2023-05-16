@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { loginValidations, registerValidations } from "@/modules/auth/validations";
 import { AuthController } from "@/modules/auth/controllers";
-import { ControllerContext } from "@/core/controller/controller.context";
+import { ControllerContext } from "@/core/domain/controller";
 
 export const authRouter: Router = Router();
 
