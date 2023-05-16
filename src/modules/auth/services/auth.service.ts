@@ -1,6 +1,6 @@
 import type { TLoginRequest, TRegisterRequest } from "@/modules/auth/dto";
 import type { Nullable } from "@/modules/common/types";
-import { UserModel } from "@/modules/user/models";
+import type { UserModel } from "@/modules/user/models";
 import { HashService, JwtService } from "@/modules/common/services";
 import { UserRepository } from "@/modules/user/repositories";
 import { BaseService } from "@/core/domain-layer/service";
@@ -9,7 +9,13 @@ import { ModelScopes } from "@/core/data-access-layer/scopes";
 
 export class AuthService extends BaseService {
 	public async login(loginRequest: TLoginRequest): Promise<Nullable<string>> {
-		const user: Nullable<UserModel> = await UserModel.findOne({ where: { userEmail: loginRequest.userEmail } });
+		const userRepository: UserRepository = new UserRepository();
+		const user: Nullable<UserModel> = await userRepository.find({
+			findOptions: {
+				attributes: ["userId", "userUuid", "userPassword"],
+				where: { userEmail: loginRequest.userEmail },
+			},
+		});
 		if (!user) return null;
 
 		const hashService: HashService = new HashService();
@@ -17,7 +23,7 @@ export class AuthService extends BaseService {
 		if (!passwordVerified) return null;
 
 		const jwtService: JwtService = new JwtService();
-		return jwtService.createToken(user.id.toString(), user);
+		return jwtService.createToken(user.userUuid.toString(), user);
 	}
 
 	public async register(registerRequest: TRegisterRequest): Promise<string | UserModel> {
