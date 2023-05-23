@@ -1,6 +1,6 @@
+import type { TControllerRequest, TControllerResponse, TError, TFailedResponse, TPossibleFailure, TSuccessfulResponse } from "@/core/presentation-layer/types";
 import type { Result, ValidationError } from "express-validator";
 import { validationResult } from "express-validator";
-import type { TControllerRequest, TControllerResponse, TError, TFailedResponse, TPossibleFailure, TSuccessfulResponse } from "@/core/controller/base-controller.type";
 
 export class BaseController {
 	protected validate<T, R>(request: TControllerRequest<T, R>, response: TControllerResponse<R>): boolean {
