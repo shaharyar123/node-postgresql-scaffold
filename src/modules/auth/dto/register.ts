@@ -1,12 +1,12 @@
-import type { UserModel } from "@/modules/user/models";
+import type { User } from "@/modules/user/models";
 
-export type TRegisterRequest = {
-	userFirstName: string;
-	userLastName: string;
-	userEmail: string;
-	userPassword: string;
+export type IRegisterRequest = {
+	first_name: string;
+	last_name: string;
+	email: string;
+	password: string;
 };
 
-export type TRegisterResponse = {
-	user: UserModel;
+export type IRegisterResponse = {
+	user: User;
 };

@@ -1,13 +1,12 @@
-import type { TLoginRequest, TLoginResponse, TRegisterRequest, TRegisterResponse } from "@/modules/auth/dto";
+import type { TControllerRequest, TControllerResponse } from "@/core/controller";
+import { BaseController } from "@/core/controller";
+import type { ILoginRequest, ILoginResponse, IRegisterRequest, IRegisterResponse } from "@/modules/auth/dto";
 import { AuthService } from "@/modules/auth/services";
+import type { User } from "@/modules/user/models";
 import type { Nullable } from "@/modules/common/types";
-import type { UserModel } from "@/modules/user/models";
-import type { TControllerRequest, TControllerResponse } from "@/core/presentation-layer/types";
-import { BaseController, Controller } from "@/core/presentation-layer/controller";
 
-@Controller
 export class AuthController extends BaseController {
-	public async login(request: TControllerRequest<TLoginRequest, TLoginResponse>, response: TControllerResponse<TLoginResponse>): Promise<void> {
+	public async login(request: TControllerRequest<ILoginRequest, ILoginResponse>, response: TControllerResponse<ILoginResponse>): Promise<void> {
 		const validated: boolean = this.validate(request, response);
 		if (!validated) return;
 
@@ -26,13 +25,13 @@ export class AuthController extends BaseController {
 		}
 	}
 
-	public async register(request: TControllerRequest<TRegisterRequest, TRegisterResponse>, response: TControllerResponse<TRegisterResponse>): Promise<void> {
+	public async register(request: TControllerRequest<IRegisterRequest, IRegisterResponse>, response: TControllerResponse<IRegisterResponse>): Promise<void> {
 		const validated: boolean = this.validate(request, response);
 		if (!validated) return;
 
 		try {
 			const authService: AuthService = new AuthService();
-			const user: string | UserModel = await authService.register(request.body);
+			const user: string | User = await authService.register(request.body);
 
 			if (typeof user === "string") {
 				this.handleException(response, user, 400);
