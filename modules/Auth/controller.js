@@ -1,9 +1,10 @@
 import _ from "lodash";
-import { sign } from "jsonwebtoken";
-import { responseHandler } from "../../helpers/responseHandler";
-import Users from "../../models/Users";
-import { decrypt_value, encrypt_value } from "../../utils/crypto";
 import { validationResult } from "express-validator";
+import { sign } from 'jsonwebtoken';
+
+import { responseHandler } from "../../helpers/responseHandler";
+import Users from "../../src/models/Users";
+import { decrypt_value, encrypt_value } from "../utils/crypto";
 
 export const login = async (req, res) => {
   const errors = validationResult(req);
@@ -15,9 +16,8 @@ export const login = async (req, res) => {
 
   const { email, password } = req.body;
   try {
-    const user = await Users.findOne({
-      where: { email: email.toLowerCase() },
-    });
+    const user = await Users.findOne({ email: email.toLowerCase() });
+
     if (!_.isEmpty(user)) {
       if (decrypt_value(user.password) !== JSON.stringify(password)) {
         return res
@@ -60,9 +60,7 @@ export const register = async (req, res) => {
   let { email, password, first_name, last_name } = req.body;
 
   try {
-    const isExists = await Users.findOne({
-      where: { email },
-    });
+    const isExists = await Users.findOne({email: email});
     if (!_.isEmpty(isExists)) {
       return res
         .status(403)
@@ -91,7 +89,7 @@ export const register = async (req, res) => {
       );
     }
   } catch (error) {
-    console.log(error);
+    console.log(error)
     return res.status(500).json(responseHandler("failed", error, null, 500));
   }
 };

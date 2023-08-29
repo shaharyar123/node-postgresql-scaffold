@@ -1,5 +1,5 @@
 import { body } from "express-validator";
-import { VALIDATION_MSGS } from "../../helpers/constants/validationConstants";
+import { VALIDATION_MSGS, LENGTH_CONSTANTS } from "../../helpers/constants/validationConstants";
 
 export const registerValidations = [
   body("email").isEmail().withMessage(VALIDATION_MSGS.emailFormat()),
