@@ -3,19 +3,13 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import { config } from "dotenv";
 
-import db from "./config/db";
-import { associateModels } from "./models";
-import { AuthRoutes } from "../modules";
+import connectDB from "./config/db";
+import { AuthRoutes } from "../modules/index";
+const port =  process.env.PORT || 8000
 
 config();
+connectDB();
 const app = express();
-
-db.authenticate()
-  .then(() => {
-    console.log("connected to database successfully!");
-    associateModels();
-  })
-  .catch((error) => console.log("Failed to connect with database.", error));
 
 /** Dependacy Packages  **/
 app.use(cors());
@@ -30,6 +24,6 @@ app.use("/", (req, res) => {
 });
 
 /***  server initialization ***/
-app.listen(process.env.PORT, () =>
-  console.log("app is listening on port " + process.env.PORT)
+app.listen(port, () =>
+  console.log("app is listening on port " + port)
 );

@@ -1,6 +1,5 @@
 import { Router } from "express";
-import { forgotPassword, login, register } from "./controller";
-import { checkResetPasswordLink, isAuthorized } from "./middleware";
+import { login, register } from "./controller";
 import { loginValidations, registerValidations } from "./request-validations";
 
 const router = Router();

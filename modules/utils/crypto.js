@@ -1,4 +1,4 @@
-import { AES, enc } from "crypto-js";
+import { AES, enc }  from 'crypto-js';
 const ENCRYPTION_KEY = "keyhere";
 
 const { encrypt, decrypt } = AES;
